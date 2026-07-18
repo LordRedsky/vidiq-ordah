@@ -9,6 +9,42 @@ from collections import Counter
 # Load environment variables with override=True
 load_dotenv(override=True)
 
+def get_robust_youtube_api_key() -> str:
+    """
+    Mencari YOUTUBE_API_KEY secara robust dari multiple sources:
+    1. os.environ
+    2. Absolute path .env
+    3. dotenv_values
+    """
+    # 1. os.environ
+    key = os.getenv("YOUTUBE_API_KEY") or os.getenv("API_KEY")
+    if key and key.strip():
+        return key.strip()
+        
+    # 2. Absolute path to .env in current directory
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        env_file = os.path.join(base_dir, ".env")
+        if os.path.exists(env_file):
+            from dotenv import dotenv_values
+            vals = dotenv_values(env_file)
+            k = vals.get("YOUTUBE_API_KEY") or vals.get("API_KEY")
+            if k and k.strip():
+                return k.strip()
+            
+            # Direct file read fallback
+            with open(env_file, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith("YOUTUBE_API_KEY=") or line.startswith("API_KEY="):
+                        val = line.split("=", 1)[1].strip().strip('"').strip("'")
+                        if val:
+                            return val
+    except Exception:
+        pass
+        
+    return ""
+
 # --- YOUTUBE DATA API V3 FUNCTIONS ---
 def get_youtube_client(api_key: str):
     from googleapiclient.discovery import build
@@ -18,6 +54,8 @@ def riset_kompetitor_youtube(kata_kunci: str, api_key: str, max_results: int = 5
     """
     Menarik video kompetitor teratas dan ekstrak tag/kata kunci utama menggunakan YouTube Data API v3.
     """
+    if not api_key:
+        api_key = get_robust_youtube_api_key()
     if not api_key:
         raise ValueError("YouTube API Key belum terkonfigurasi di file .env (YOUTUBE_API_KEY)")
 
@@ -285,9 +323,14 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Load API Key silently from environment
-load_dotenv(override=True)
-youtube_api_key = os.getenv("YOUTUBE_API_KEY") or os.getenv("API_KEY") or ""
+# Load API Key silently & robustly from environment or .env
+youtube_api_key = get_robust_youtube_api_key()
+
+if not youtube_api_key:
+    with st.expander("🔑 YouTube API Key belum terdeteksi dari .env. Masukkan API Key di sini:"):
+        manual_key = st.text_input("YouTube Data API Key", type="password")
+        if manual_key:
+            youtube_api_key = manual_key.strip()
 
 # Inputs Form (Compact Layout)
 c1, c2 = st.columns([2, 1])
