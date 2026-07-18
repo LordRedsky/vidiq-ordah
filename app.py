@@ -6,8 +6,8 @@ import streamlit as st
 from dotenv import load_dotenv
 from collections import Counter
 
-# Load environment variables
-load_dotenv()
+# Load environment variables with override=True
+load_dotenv(override=True)
 
 # --- YOUTUBE DATA API V3 FUNCTIONS ---
 def get_youtube_client(api_key: str):
@@ -286,6 +286,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Load API Key silently from environment
+load_dotenv(override=True)
 youtube_api_key = os.getenv("YOUTUBE_API_KEY") or os.getenv("API_KEY") or ""
 
 # Inputs Form (Compact Layout)
