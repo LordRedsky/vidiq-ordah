@@ -1,5 +1,11 @@
 streamlit
 google-genai
+google-generativeai
 google-api-python-client
 pydantic
 python-dotenv
+pypdf
+pillow
+sqlalchemy
+edge-tts
+aiofiles

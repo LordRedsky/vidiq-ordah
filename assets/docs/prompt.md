@@ -1,0 +1,26 @@
+saya ingin membuat website dashboar untuk generate video dan voice over untuk keperluan youtube yang nanti akan di generate dari inputan user. Untuk tampilan sesuaikan dseperti pada gambar yang ada pada folder assets/image/mockup dashboard.jpeg
+
+
+Berikut cara kerjanya
+
+1. Create DNA creator (otak dari channel)
+- Proses pembuatan DNA Creator ini hanya dilakukan sekali di awal, dan hasilnya akan disimpan dalam file pdf. dan ketika user ingin mengganti DNA creator maka user harus mengupload file pdf baru yang sudah di generate dari dokumen kreator yang lain. proses pembuatan DNA creator ini simple, user hanya perlu mengupload file DNA creator yang telah di bikin, dan ketika mengklik simpan makan DNA ini akan menjadi panduan kita dalam melakukan tahapan selanutnya. DNA ini akan menjadi landasan kita dalam neggenerate skript video, narasi, visual dan voice over.
+ - kemudian ada satu bagian lagi yaitu proses upload main karakter. main karakter ini biasanya dalam bentuk gambar animasi yang nantinya akan menajdi acuan dalam generate setiap scene pada video. untuk main karakter ini user tidak bisa mengeditnya, jadi ketika user mengupload main karakter baru maka DNA creator akan terupdate otomatis.
+
+2. Generate Judul youtube (menggunakan API youtube)
+
+user akan mengisi kotak riset topik yang disediakan. ketika user mengisi topik yang ingin dibahas lalu mengklik mulai maka sistem kita akan berikan 7 ide judul YouTube (menggunakan API Youtube yang disediakan) terbaik yang sesuai dengan DNA kreator yang telah dianalisis. Setiap judul harus memiliki potensi CTR tinggi, relevan dengan audiens kreator, dan disertai alasan singkat mengapa ide tersebut menarik. Judul ini akan di simpan ke database dengan status "Pending". Jika User memilih salah satu judulnya, maka statusnya langsung berubah menjadi "terseleksi" dan User tidak bisa lagi mengubah judul yang sudah terseleksi. Hal ini bertujuan agar tidak ada topik yang berulang dan bagus untuk manajemen judul.
+
+3. Generate skript
+ketika user mengklik salah satu dari judul, misalnya "1. judul youtube", maka secara otomatis sistem kita akan menggenerate naskah YouTube lengkap berdurasi 10–12 menit TERDAPAT 10000 Karakter-11000 karakter huruf. Naskah harus menggunakan gaya bahasa, pola berpikir, cara menjelaskan, cara menyelesaikan masalah, tingkat energi, emosi, struktur konten, dan karakter yang sama dengan kreator yang telah dianalisis. Jangan menggunakan gaya bahasa AI yang generik. Struktur naskah harus terdiri dari Hook yang kuat di awal, penjelasan masalah yang dihadapi audiens, insight atau sudut pandang unik dari kreator, solusi yang dijelaskan secara runtut, contoh atau studi kasus yang relevan, serta penutup yang berisi kesimpulan dan call-to-action sesuai gaya kreator. Prioritaskan kemiripan terhadap kreator yang dianalisis dibandingkan gaya penulisan AI pada umumnya. Setiap output harus menjaga konsistensi karakter, pola berpikir, cara berbicara, cara mengajar, cara memecahkan masalah, dan struktur penyampaian konten kreator agar hasilnya terasa seperti dibuat langsung oleh kreator tersebut. Jangan keluar dari karakter yang telah dianalisis kecuali saya memberikan instruksi baru. 
+
+4. Edit / analisis Script
+kemudian skript yang telah di generate ini bisa dilakukan pengeditan manual sesuai dengan hasil analisa sistem kita (seperti pada vidiq). nanti akan muncul kata kunci utama, tag, dll yang sudah di analisa oleh sistem kita. nnati ada rekomendasi yang harus diganti agar lebih baik SEO nya, ada juga beberapa kalimat yang harus di hapus atau diganti karena dianggap tidak sesuai dengan karakter kreator yang telah dianalisis. dan sebagainya kamu sesuaikan saja tampilan pada kotak edit / analisa ini seperti pada website vidiq sehingga user enak untuk menganalisa skript hasil generate sebelumnya. setelah oke user mengklik tombil "simpan". berarti skrit telah fix dan siap digunakan untuk tahap selanjutnya
+
+5. Tombol "generate all scene" sebanyak 45 scene
+nah, ketika user mengklik tombol "generate all scene" maka sistem akan secara otomatis memecah skrip tersebut menjadi 45 scene. dimana pada setiap scene nantinya akan ada Kolom Narasi yang berisi narasi, ada juga kolom untuk menempatkan Prompt Gambar (yang otomatis terisi dari naskah) dan juga ada tombol Generate Gambar dan video. Dibawah kolom narasi nannti akan ada tombol untuk generate voice over yang nanti saya akan hubungkan dengan elevenlabs 
+
+sehingga nanti user tinggal generate gambar dan video per scene sesuai dengan DNA kreator yang telah dianalisis. 
+
+6. downlaod all
+ketika semua telah selesai digenerate, baik itu gambar, video dan voice overnya, tahapan terakhir adalah user bisa mendownload semua file (video, gambar dan voiceover) yang nantinya akan digabungkan menjadi sebuah video youtube oleh user sendiri. ketika di klik tombol download, file file tadi akan tersusun dalam satu folder youtube/nama-folder. dimana dalam folder tersebut berisi  sub-folder yaitu video, gambar dan voiceover, didalam folder video berisi potongan-potongan video sesuai jumlah scene, didalam folder gambar berisi potongan gambar sesuai jumlah scene, didalam folder voiceover berisi potongan voiceover sesuai jumlah scene. ingat file harus berurutan sesuai scene nya sehingga user tidak repot lagi memfilter gambarnya ketika nanti akan dilakukan pengeditan.
